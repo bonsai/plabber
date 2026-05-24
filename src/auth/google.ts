@@ -81,7 +81,7 @@ export async function exchangeCode(credentials: Credentials, code: string, redir
   return {
     access_token: data.access_token as string,
     refresh_token: data.refresh_token as string,
-    expiry_date: Date.now() + (data.expires_in as number) * 1000,
+    expiry_date: Date.now() + (Number(data.expires_in) || 3600) * 1000,
   };
 }
 
