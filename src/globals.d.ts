@@ -2,6 +2,9 @@ declare const process: {
   argv: string[];
   env: Record<string, string | undefined>;
   exit(code?: number): never;
+  stdin: {
+    read(buffer: Uint8Array): Promise<number | null>;
+  };
   stdout: {
     write(data: string): void;
   };
@@ -12,6 +15,16 @@ declare const Bun: {
     text(): Promise<string>;
   };
   write(path: string, data: string): Promise<number>;
+  stdin: {
+    read(buffer: Uint8Array): Promise<number | null>;
+  };
+  serve(options: {
+    port: number;
+    fetch: (req: Request) => Response | Promise<Response>;
+  }): {
+    port: number;
+    stop(): void;
+  };
   spawn(options: {
     cmd: string[];
     cwd?: string;
