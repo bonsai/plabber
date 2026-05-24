@@ -1,0 +1,6 @@
+name = "plabber"
+main = "src/index.ts"
+compatibility_date = "2026-05-25"
+
+[triggers]
+crons = ["*/15 * * * *"]

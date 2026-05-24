@@ -4,7 +4,9 @@ import { loadConfig } from "./config";
 import { toCsv } from "./csv";
 import { inferSakuraGenre } from "./sakura";
 import { runScriptCommand } from "./script";
-import type { Entry, FeedResult, PlabberConfig, PluginDefinition, TransformLLMConfig } from "./types";
+import { buildPlugins } from "./plugin";
+import { MemoryStorage } from "./storage";
+import type { Context, Entry, FeedResult, PlabberConfig, PluginDefinition, TransformLLMConfig } from "./types";
 
 type CsvPublishConfig = {
   file: string;
@@ -244,6 +246,14 @@ async function enrichRowsWithSakura(rows: Entry[], config: PlabberConfig): Promi
   );
 }
 
+async function writeCsv(rows: Entry[], publish: CsvPublishConfig, cwd: string): Promise<string> {
+  const filePath = resolve(cwd, publish.file);
+  await mkdir(dirname(filePath), { recursive: true });
+  const csv = toCsv(publish.columns, rows, publish.header ?? true);
+  await Bun.write(filePath, csv);
+  return filePath;
+}
+
 function readStringField(row: Entry, fieldName: string, rowIndex: number): string {
   const value = row[fieldName];
   if (typeof value !== "string" || value.trim() === "") {
@@ -252,52 +262,59 @@ function readStringField(row: Entry, fieldName: string, rowIndex: number): strin
   return value.trim();
 }
 
-async function enrichRowsWithSakura(rows: Entry[], config: PlabberConfig): Promise<Entry[]> {
-  const enrich = getSakuraConfig(config);
-  if (!enrich) {
-    return rows;
+export async function runPluginPipeline(config: PlabberConfig): Promise<{ sent: number; skipped: number; dropped: number }> {
+  const storage = new MemoryStorage();
+  const { subscriptions, filters, publishes } = buildPlugins(config, { storage });
+
+  const ctx: Context = {};
+  let sent = 0;
+  let skipped = 0;
+  let dropped = 0;
+
+  for (const sub of subscriptions) {
+    const feeds = await sub.fetch(ctx);
+    for (const feed of feeds) {
+      for (const entry of feed.entries) {
+        const guid = (entry.guid ?? entry.url ?? "") as string;
+
+        if (guid && storage.has(guid)) {
+          skipped++;
+          continue;
+        }
+
+        let current: Entry | null = entry;
+        for (const filter of filters) {
+          try {
+            current = await filter.filter(ctx, current);
+          } catch (err) {
+            const message = err instanceof Error ? err.message : String(err);
+            console.error(`[${filter.name}] error: ${message}`);
+            current = null;
+          }
+          if (!current) {
+            dropped++;
+            break;
+          }
+        }
+
+        if (!current) continue;
+
+        for (const pub of publishes) {
+          try {
+            await pub.publish(ctx, current);
+          } catch (err) {
+            const message = err instanceof Error ? err.message : String(err);
+            console.error(`[${pub.name}] publish error: ${message}`);
+          }
+        }
+
+        if (guid) storage.add(guid);
+        sent++;
+      }
+    }
   }
 
-  const apiKey = process.env.SAKURA_API_KEY?.trim();
-  if (!apiKey) {
-    throw new Error("SAKURA_API_KEY is required for Enrich::SakuraGenre");
-  }
-
-  const model = enrich.model ?? process.env.SAKURA_MODEL ?? "gpt-4o-mini";
-  const baseUrl = enrich.baseUrl ?? process.env.SAKURA_API_BASE_URL;
-  const cache = new Map<string, Promise<string>>();
-
-  return Promise.all(
-    rows.map(async (row, rowIndex) => {
-      const artist = readStringField(row, enrich.artistField ?? "artist", rowIndex);
-      const title = readStringField(row, enrich.titleField ?? "title", rowIndex);
-      const cacheKey = `${artist}\u0000${title}`;
-      const genrePromise =
-        cache.get(cacheKey) ??
-        inferSakuraGenre({
-          artist,
-          title,
-          model,
-          apiKey,
-          baseUrl,
-        });
-
-      cache.set(cacheKey, genrePromise);
-      const genre = await genrePromise;
-      return {
-        ...row,
-        [enrich.genreField ?? "genre"]: genre,
-      };
-    }),
-  );
-}
-
-async function writeCsv(rows: Entry[], publish: CsvPublishConfig, cwd: string): Promise<string> {
-  const filePath = resolve(cwd, publish.file);
-  await mkdir(dirname(filePath), { recursive: true });
-  const csv = toCsv(publish.columns, rows, publish.header ?? true);
-  await Bun.write(filePath, csv);
-  return filePath;
+  return { sent, skipped, dropped };
 }
 
 export async function runPipeline(configPath: string): Promise<{ outputFile: string; rowCount: number }> {
