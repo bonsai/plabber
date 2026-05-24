@@ -57,3 +57,23 @@ export class TruncateFilter implements Filter {
     return entry;
   }
 }
+
+export class HTML2TextFilter implements Filter {
+  name = "Filter::HTML2Text";
+
+  async filter(_ctx: Context, entry: Entry): Promise<Entry | null> {
+    if (typeof entry.body !== "string") return entry;
+    const text = entry.body
+      .replace(/<[^>]+>/g, " ")
+      .replace(/&amp;/g, "&")
+      .replace(/&lt;/g, "<")
+      .replace(/&gt;/g, ">")
+      .replace(/&quot;/g, '"')
+      .replace(/&#39;/g, "'")
+      .replace(/&nbsp;/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+    if (!text) return null;
+    return { ...entry, body: text };
+  }
+}

@@ -1,5 +1,5 @@
 import type { Context, Entry, Filter, PlabberConfig, PluginDefinition, Publish, Subscription } from "./types";
-import { DedupedFilter, RuleFilter, TruncateFilter } from "./filter";
+import { DedupedFilter, HTML2TextFilter, RuleFilter, TruncateFilter } from "./filter";
 import { GASPublish, StdoutPublish, WebhookPublish, WorkersKVPublish } from "./publish";
 import { ConfigSubscription } from "./subscription";
 
@@ -42,6 +42,8 @@ function buildPlugin(def: PluginDefinition, deps?: { kv?: KVNamespace; storage?:
     }
     case "Filter::Truncate":
       return new TruncateFilter((def.config as { maxLength?: number })?.maxLength);
+    case "Filter::HTML2Text":
+      return new HTML2TextFilter();
     case "Publish::Stdout":
       return new StdoutPublish();
     case "Publish::Webhook":
