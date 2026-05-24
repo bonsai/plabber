@@ -1,0 +1,13 @@
+global:
+  timezone: Asia/Tokyo
+
+plugins:
+  - module: Subscription::GoogleDrive
+    config:
+      fileId: "your_bookmark_file_id"
+      credentialsPath: "./credentials.json"
+      tokenPath: "./token.json"
+
+  - module: Publish::Text
+    config:
+      file: "output/bookmark-${timestamp}.txt"
