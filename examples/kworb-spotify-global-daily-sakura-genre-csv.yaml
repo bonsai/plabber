@@ -1,0 +1,35 @@
+global:
+  timezone: Asia/Tokyo
+
+plugins:
+  - module: Subscription::Config
+    config:
+      feed:
+        - url: script:bun ./scripts/kworb-spotify-global-daily.ts
+
+  - module: CustomFeed::Script
+    config:
+      format: json
+
+  - module: Enrich::SakuraGenre
+    config:
+      model: gpt-4o-mini
+      baseUrl: https://api.ai.sakura.ad.jp/v1
+      artistField: artist
+      titleField: title
+      genreField: genre
+
+  - module: Publish::CSV
+    config:
+      file: ../output/spotify-global-daily-with-genre.csv
+      header: true
+      columns:
+        - date
+        - rank
+        - artist
+        - title
+        - genre
+        - streams
+        - streams7
+        - total_streams
+        - url

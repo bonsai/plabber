@@ -89,6 +89,34 @@ plugins:
   - module: Publish::Stdout
 ```
 
+Reference example for kworb HTML scraping to CSV:
+
+```bash
+plabber run -c examples/kworb-spotify-global-daily-csv.yaml
+```
+
+This example mirrors Plagger-style `CustomFeed::Script` -> `Publish::CSV` flow and uses:
+
+- `examples/scripts/kworb-spotify-global-daily.ts`
+- `examples/kworb-spotify-global-daily-csv.yaml`
+
+Genre enrichment via Sakura API is available in:
+
+- `examples/kworb-spotify-global-daily-sakura-genre-csv.yaml`
+
+It adds `Enrich::SakuraGenre` between `CustomFeed::Script` and `Publish::CSV` and expects:
+
+- `SAKURA_API_KEY`
+- optional `SAKURA_MODEL`
+- optional `SAKURA_API_BASE_URL`
+
+Example:
+
+```bash
+set SAKURA_API_KEY=...
+bun run .\cmd\plabber.ts run -c .\examples\kworb-spotify-global-daily-sakura-genre-csv.yaml
+```
+
 ## API mode (local)
 
 ```bash
@@ -139,12 +167,10 @@ plabber/
 └── README.md
 ```
 
-## Getting started (once implemented)
+## Getting started
 
 ```bash
-bun create plabber my-feeds && cd my-feeds
-# edit config.yaml
-bun run plabber run -c config.yaml
+bun run plabber -- run -c config.yaml
 
 # deploy to Workers
 npx wrangler deploy

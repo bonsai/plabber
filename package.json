@@ -1,0 +1,12 @@
+{
+  "name": "plabber",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "bin": {
+    "plabber": "./cmd/plabber.ts"
+  },
+  "scripts": {
+    "plabber": "bun run ./cmd/plabber.ts"
+  }
+}

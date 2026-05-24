@@ -1,0 +1,46 @@
+global:
+  timezone: Asia/Tokyo
+
+plugins:
+  # plagger の CustomFeed::Script 相当を想定した購読例。
+  # kworb の HTML テーブルを Bun スクリプトで正規化して取り込む。
+  - module: Subscription::Config
+    config:
+      feed:
+        - url: script:bun ./scripts/kworb-spotify-global-daily.ts
+
+  # plagger 互換の target shape。
+  # Bun 版では script の stdout(JSON/YAML) を Entry 配列として解釈する想定。
+  - module: CustomFeed::Script
+    config:
+      format: json
+
+  # General LLM transform: classify genre from artist + title (recommended)
+  # Using the new generic Transform::LLM plugin instead of Enrich::SakuraGenre
+  - module: Transform::LLM
+    config:
+      system: "You are a music analyst. Classify songs into ONE genre from this list: J-POP, City Pop, Rock, Electronic, Hip-Hop, R&B, Anime, Classical, Jazz, Folk, World. Return ONLY the genre name."
+      prompt: |
+        Artist: ${artist}
+        Title: ${title}
+        
+        Based on this information, what genre is this song?
+        Genre:
+      mode: text
+      outputField: genre
+      concurrency: 5
+
+  # title / author / meta を CSV 向けにそのまま流す想定。
+  - module: Publish::CSV
+    config:
+      file: ../output/spotify-global-daily.csv
+      header: true
+      columns:
+        - date
+        - rank
+        - artist
+        - title
+        - streams
+        - streams7
+        - total_streams
+        - url

@@ -1,0 +1,40 @@
+global:
+  timezone: Asia/Tokyo
+
+plugins:
+  # Feed source: Bun script → JSON entries
+  - module: Subscription::Config
+    config:
+      feed:
+        - url: script:bun ./scripts/kworb-spotify-global-daily.ts
+
+  - module: CustomFeed::Script
+    config:
+      format: json
+
+  # General LLM transform: translate artist+title to English romaji
+  - module: Transform::LLM
+    config:
+      system: "You are a music translator. Translate Japanese/Korean artist names and song titles into readable romaji (Latin alphabet). Return ONLY the translation, no extra text."
+      prompt: |
+        Artist: ${artist}
+        Title: ${title}
+        
+        Romaji:
+      mode: text
+      outputField: romaji
+      concurrency: 5
+
+  # Publish to CSV
+  - module: Publish::CSV
+    config:
+      file: ../output/spotify-with-romaji.csv
+      header: true
+      columns:
+        - date
+        - rank
+        - artist
+        - title
+        - romaji
+        - streams
+        - url
