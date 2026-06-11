@@ -35,6 +35,10 @@ async function main() {
     const configPath = parseConfigPath(args);
     const result = await runDigestPipeline(configPath);
     console.log(`wrote ${result.rowCount} events to ${result.icalFile} and ${result.jsonFile}`);
+    if (result.icalContent) {
+      console.log("\n--- iCal ---");
+      console.log(result.icalContent);
+    }
   } else {
     usage();
   }

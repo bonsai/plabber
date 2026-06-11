@@ -1,0 +1,15 @@
+global:
+  timezone: Asia/Tokyo
+
+plugins:
+  - module: CustomFeed::Script
+    config:
+      command: bun ./scripts/connpass-ruby-tokyo.ts
+
+  - module: Publish::ICal
+    config:
+      file: ../docs/connpass-ruby-tokyo.ics
+
+  - module: Publish::JSON
+    config:
+      file: ../docs/connpass-ruby-tokyo.json

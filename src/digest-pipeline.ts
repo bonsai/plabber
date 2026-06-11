@@ -27,7 +27,7 @@ function toICalEvents(rows: Record<string, unknown>[]): ICalEvent[] {
   }));
 }
 
-export async function runDigestPipeline(configPath: string): Promise<{ icalFile: string; jsonFile: string; rowCount: number }> {
+export async function runDigestPipeline(configPath: string): Promise<{ icalFile: string; jsonFile: string; rowCount: number; icalContent: string }> {
   const cwd = dirname(resolve(configPath));
   const config = await loadConfig(configPath);
 
@@ -48,12 +48,14 @@ export async function runDigestPipeline(configPath: string): Promise<{ icalFile:
 
   let icalFile = "";
   let jsonFile = "";
+  let icalContent = "";
 
   if (icalPlugin) {
     const outConfig = icalPlugin.config as { file?: string } | undefined;
     const outPath = resolve(cwd, outConfig?.file || "docs/calendar.ics");
     await mkdir(dirname(outPath), { recursive: true });
-    await Bun.write(outPath, toICal(icalEvents));
+    icalContent = toICal(icalEvents);
+    await Bun.write(outPath, icalContent);
     icalFile = outPath;
   }
 
@@ -65,5 +67,5 @@ export async function runDigestPipeline(configPath: string): Promise<{ icalFile:
     jsonFile = outPath;
   }
 
-  return { icalFile, jsonFile, rowCount: rows.length };
+  return { icalFile, jsonFile, rowCount: rows.length, icalContent };
 }
