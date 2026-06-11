@@ -1,0 +1,15 @@
+global:
+  timezone: Asia/Tokyo
+
+plugins:
+  - module: CustomFeed::Script
+    config:
+      command: bun ./scripts/prtimes.ts
+
+  - module: Publish::ICal
+    config:
+      file: ../docs/calendar.ics
+
+  - module: Publish::JSON
+    config:
+      file: ../docs/feed.json
