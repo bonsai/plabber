@@ -8,5 +8,9 @@
   },
   "scripts": {
     "run:pipeline": "bun ./cmd/plabber.ts run -c examples/prtimes-digest.yaml"
+  },
+  "dependencies": {
+    "@types/nodemailer": "^8.0.1",
+    "nodemailer": "^8.0.11"
   }
 }

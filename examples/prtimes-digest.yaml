@@ -13,3 +13,11 @@ plugins:
   - module: Publish::JSON
     config:
       file: ../docs/feed.json
+
+  # Set GMAIL_USER / GMAIL_PASS (App Password) in GitHub Actions secrets
+  # - module: Publish::Gmail
+  #   config:
+  #     to: you@example.com
+  #     subject: "今日の試食会情報"
+  #     limit: 30
+  #     onlyNew: true

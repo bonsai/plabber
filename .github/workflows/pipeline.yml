@@ -19,6 +19,9 @@ jobs:
           bun-version: latest
 
       - name: Run pipeline
+        env:
+          GMAIL_USER: ${{ secrets.GMAIL_USER }}
+          GMAIL_PASS: ${{ secrets.GMAIL_PASS }}
         run: bun ./cmd/plabber.ts run -c examples/prtimes-digest.yaml
 
       - name: Commit outputs

@@ -4,6 +4,7 @@ import { loadConfig } from "./config";
 import { runScriptCommand } from "./script";
 import { toICal, type ICalEvent } from "./ical";
 import { openDb, seedFromJson, upsertEntries, getAllEntries, type EntryRow } from "./db";
+import { publishGmail, type GmailConfig } from "./publish/gmail";
 import type { PlabberConfig, PluginDefinition } from "./types";
 
 function getPlugins(config: PlabberConfig, name: string): PluginDefinition[] {
@@ -76,5 +77,13 @@ export async function runPipeline(configPath: string): Promise<{ total: number; 
     await Bun.write(outPath, toICal(events));
   }
 
-  return { total: all.length, added: all.length - before };
+  const result = { total: all.length, added: all.length - before };
+
+  for (const plugin of getPlugins(config, "Publish::Gmail")) {
+    const cfg = plugin.config as Partial<GmailConfig> | undefined;
+    if (!cfg?.to) throw new Error("Publish::Gmail requires config.to");
+    await publishGmail(cfg as GmailConfig, all, result.added);
+  }
+
+  return result;
 }
