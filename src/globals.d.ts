@@ -1,3 +1,16 @@
+declare module "bun:sqlite" {
+  interface Statement {
+    run(params?: Record<string, unknown>): void;
+  }
+  export class Database {
+    constructor(path: string);
+    exec(sql: string): void;
+    prepare(sql: string): Statement;
+    query<T, P extends unknown[]>(sql: string): { all(...params: P): T[] };
+    close(): void;
+  }
+}
+
 declare const process: {
   argv: string[];
   env: Record<string, string | undefined>;
@@ -13,6 +26,7 @@ declare const process: {
 declare const Bun: {
   file(path: string): {
     text(): Promise<string>;
+    exists(): Promise<boolean>;
   };
   write(path: string, data: string): Promise<number>;
   stdin: {

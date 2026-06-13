@@ -1,327 +1,80 @@
 import { dirname, resolve } from "node:path";
 import { mkdir } from "node:fs/promises";
 import { loadConfig } from "./config";
-import { toCsv } from "./csv";
-import { inferSakuraGenre } from "./sakura";
 import { runScriptCommand } from "./script";
-import type { Entry, FeedResult, PlabberConfig, PluginDefinition, TransformLLMConfig } from "./types";
+import { toICal, type ICalEvent } from "./ical";
+import { openDb, seedFromJson, upsertEntries, getAllEntries, type EntryRow } from "./db";
+import type { PlabberConfig, PluginDefinition } from "./types";
 
-type CsvPublishConfig = {
-  file: string;
-  header?: boolean;
-  columns: string[];
-};
-
-type SakuraGenreConfig = {
-  model?: string;
-  baseUrl?: string;
-  artistField?: string;
-  titleField?: string;
-  genreField?: string;
-};
-
-function getPlugin(config: PlabberConfig, moduleName: string): PluginDefinition | undefined {
-  return config.plugins.find((plugin) => plugin.module === moduleName);
+function getPlugins(config: PlabberConfig, name: string): PluginDefinition[] {
+  return config.plugins.filter((p) => p.module === name);
 }
 
-function getFeedCommands(config: PlabberConfig): string[] {
-  const plugin = getPlugin(config, "Subscription::Config");
-  const feed = plugin?.config?.feed;
-  if (!Array.isArray(feed)) {
-    throw new Error("Subscription::Config config.feed must be an array");
-  }
-
-  return feed
-    .map((item) => (item && typeof item === "object" ? (item as { url?: unknown }).url : undefined))
-    .filter((url): url is string => typeof url === "string")
-    .map((url) => {
-      if (!url.startsWith("script:")) {
-        throw new Error(`unsupported feed url: ${url}`);
-      }
-      return url.slice("script:".length).trim();
-    });
+function getPlugin(config: PlabberConfig, name: string): PluginDefinition | undefined {
+  return config.plugins.find((p) => p.module === name);
 }
 
-function parseFeedResult(text: string): FeedResult {
-  const parsed = JSON.parse(text) as Partial<FeedResult> | null;
-  if (!parsed || typeof parsed !== "object" || !Array.isArray(parsed.entries)) {
+function parseEntries(text: string, source: string): EntryRow[] {
+  const parsed = JSON.parse(text) as Partial<{ entries: Record<string, unknown>[] }> | null;
+  if (!parsed || !Array.isArray(parsed.entries)) {
     throw new Error("script output must be JSON with entries[]");
   }
-  return {
-    title: parsed.title,
-    link: parsed.link,
-    entries: parsed.entries,
-  };
+  return parsed.entries.map((e) => ({
+    uid: String(e.uid ?? e.url ?? crypto.randomUUID()),
+    title: String(e.title ?? ""),
+    url: String(e.url ?? ""),
+    published: String(e.published ?? new Date().toISOString().slice(0, 10)),
+    summary: String(e.summary ?? ""),
+    company: String(e.company ?? ""),
+    source,
+  }));
 }
 
-function getCsvConfig(config: PlabberConfig): CsvPublishConfig {
-  const plugin = getPlugin(config, "Publish::CSV");
-  const csvConfig = plugin?.config as Partial<CsvPublishConfig> | undefined;
-  if (!csvConfig?.file || !Array.isArray(csvConfig.columns)) {
-    throw new Error("Publish::CSV requires file and columns");
-  }
-
-  return {
-    file: csvConfig.file,
-    header: csvConfig.header ?? true,
-    columns: csvConfig.columns,
-  };
-}
-
-function getSakuraConfig(config: PlabberConfig): SakuraGenreConfig | null {
-  const plugin = getPlugin(config, "Enrich::SakuraGenre");
-  if (!plugin) {
-    return null;
-  }
-
-  const enrichConfig = plugin.config as Partial<SakuraGenreConfig> | undefined;
-  return {
-    model: enrichConfig?.model,
-    baseUrl: enrichConfig?.baseUrl,
-    artistField: enrichConfig?.artistField ?? "artist",
-    titleField: enrichConfig?.titleField ?? "title",
-    genreField: enrichConfig?.genreField ?? "genre",
-  };
-}
-
-/** Extract a string value from a row for prompt interpolation */
-function getField(row: Entry, fieldName: string): string {
-  const value = row[fieldName];
-  if (value == null) return "";
-  if (typeof value === "string") return value;
-  if (typeof value === "number" || typeof value === "boolean") return String(value);
-  return JSON.stringify(value);
-}
-
-/** Fill a prompt template with ${field} placeholders replaced by row values */
-function interpolatePrompt(template: string, row: Entry): string {
-  return template.replace(/\$\{(\w+)\}/g, (_match, field) => getField(row, field));
-}
-
-/** Call the LLM API and parse the response */
-async function callLLM(config: TransformLLMConfig, messages: Array<{ role: "system" | "user"; content: string }>): Promise<string> {
-  const apiKey = config.authHeader ? undefined : process.env.SAKURA_API_KEY?.trim();
-  if (!apiKey && !process.env.SAKURA_API_KEY) {
-    throw new Error("SAKURA_API_KEY is required (set SAKURA_API_KEY env var)");
-  }
-
-  const url = config.baseUrl ?? process.env.SAKURA_API_BASE_URL ?? "https://api.ai.sakura.ad.jp/v1/chat/completions";
-  const headers: Record<string, string> = {
-    Authorization: config.authHeader ?? `Bearer ${apiKey}`,
-    "Content-Type": "application/json",
-  };
-
-  const body = JSON.stringify({
-    model: config.model ?? process.env.SAKURA_MODEL ?? "gpt-4o-mini",
-    messages,
-    temperature: 0.3,
-    max_tokens: 2048,
-  });
-
-  const res = await fetch(url, { method: "POST", headers, body });
-  if (!res.ok) {
-    const text = await res.text();
-    throw new Error(`LLM API error ${res.status}: ${text}`);
-  }
-
-  const json = (await res.json()) as { choices?: Array<{ message?: { content?: string } }> };
-  const content = json.choices?.[0]?.message?.content;
-  if (!content) {
-    throw new Error("LLM returned no content in response");
-  }
-  return content.trim();
-}
-
-/** Transform rows using the generic LLM Transform plugin */
-async function transformRowsWithLLM(rows: Entry[], config: PlabberConfig): Promise<Entry[]> {
-  const plugin = getPlugin(config, "Transform::LLM");
-  if (!plugin) {
-    return rows;
-  }
-
-  const transformConfig = plugin.config as Partial<TransformLLMConfig> | undefined;
-  if (!transformConfig?.prompt) {
-    throw new Error("Transform::LLM requires a 'prompt' template");
-  }
-
-  const mode = transformConfig.mode ?? "text";
-  const outputFields = transformConfig.outputField
-    ? Array.isArray(transformConfig.outputField)
-      ? transformConfig.outputField
-      : [transformConfig.outputField]
-    : ["__transform__"];
-  const concurrency = transformConfig.concurrency ?? 5;
-
-  // Process in batches for rate limiting
-  const results: Entry[] = [];
-  for (let i = 0; i < rows.length; i += concurrency) {
-    const batch = rows.slice(i, i + concurrency);
-    const batchResults = await Promise.all(
-      batch.map(async (row, idx) => {
-        const prompt = interpolatePrompt(transformConfig.prompt!, row);
-        const messages: Array<{ role: "system" | "user"; content: string }> = [];
-        if (transformConfig.system) {
-          messages.push({ role: "system", content: transformConfig.system });
-        }
-        messages.push({ role: "user", content: prompt });
-
-        const raw = await callLLM(transformConfig as TransformLLMConfig, messages);
-
-        switch (mode) {
-          case "json_extract": {
-            if (!transformConfig.jsonKey) {
-              throw new Error('Transform::LLM mode "json_extract" requires jsonKey config');
-            }
-            try {
-              const obj = JSON.parse(raw);
-              return { ...row, [outputFields[idx % outputFields.length]]: obj[transformConfig.jsonKey!] };
-            } catch {
-              return { ...row, [outputFields[idx % outputFields.length]]: raw };
-            }
-          }
-          case "json_object": {
-            try {
-              const obj = JSON.parse(raw);
-              const newFields: Record<string, unknown> = {};
-              for (const key of Object.keys(obj)) {
-                newFields[key] = obj[key];
-              }
-              return { ...row, ...newFields };
-            } catch {
-              return { ...row, [outputFields[idx % outputFields.length]]: raw };
-            }
-          }
-          case "text":
-          default:
-            return { ...row, [outputFields[idx % outputFields.length]]: raw };
-        }
-      }),
-    );
-    results.push(...batchResults);
-  }
-
-  return results;
-}
-
-/** Backward-compatible: enrich rows with Sakura genre classification */
-async function enrichRowsWithSakura(rows: Entry[], config: PlabberConfig): Promise<Entry[]> {
-  const enrich = getSakuraConfig(config);
-  if (!enrich) {
-    return rows;
-  }
-
-  const apiKey = process.env.SAKURA_API_KEY?.trim();
-  if (!apiKey) {
-    throw new Error("SAKURA_API_KEY is required for Enrich::SakuraGenre");
-  }
-
-  const model = enrich.model ?? process.env.SAKURA_MODEL ?? "gpt-4o-mini";
-  const baseUrl = enrich.baseUrl ?? process.env.SAKURA_API_BASE_URL;
-  const cache = new Map<string, Promise<string>>();
-
-  return Promise.all(
-    rows.map(async (row, rowIndex) => {
-      const artist = readStringField(row, enrich.artistField ?? "artist", rowIndex);
-      const title = readStringField(row, enrich.titleField ?? "title", rowIndex);
-      const cacheKey = `${artist}\u0000${title}`;
-      const genrePromise =
-        cache.get(cacheKey) ??
-        inferSakuraGenre({
-          artist,
-          title,
-          model,
-          apiKey,
-          baseUrl,
-        });
-
-      cache.set(cacheKey, genrePromise);
-      const genre = await genrePromise;
-      return {
-        ...row,
-        [enrich.genreField ?? "genre"]: genre,
-      };
-    }),
-  );
-}
-
-function readStringField(row: Entry, fieldName: string, rowIndex: number): string {
-  const value = row[fieldName];
-  if (typeof value !== "string" || value.trim() === "") {
-    throw new Error(`row ${rowIndex + 1} is missing required field "${fieldName}"`);
-  }
-  return value.trim();
-}
-
-async function enrichRowsWithSakura(rows: Entry[], config: PlabberConfig): Promise<Entry[]> {
-  const enrich = getSakuraConfig(config);
-  if (!enrich) {
-    return rows;
-  }
-
-  const apiKey = process.env.SAKURA_API_KEY?.trim();
-  if (!apiKey) {
-    throw new Error("SAKURA_API_KEY is required for Enrich::SakuraGenre");
-  }
-
-  const model = enrich.model ?? process.env.SAKURA_MODEL ?? "gpt-4o-mini";
-  const baseUrl = enrich.baseUrl ?? process.env.SAKURA_API_BASE_URL;
-  const cache = new Map<string, Promise<string>>();
-
-  return Promise.all(
-    rows.map(async (row, rowIndex) => {
-      const artist = readStringField(row, enrich.artistField ?? "artist", rowIndex);
-      const title = readStringField(row, enrich.titleField ?? "title", rowIndex);
-      const cacheKey = `${artist}\u0000${title}`;
-      const genrePromise =
-        cache.get(cacheKey) ??
-        inferSakuraGenre({
-          artist,
-          title,
-          model,
-          apiKey,
-          baseUrl,
-        });
-
-      cache.set(cacheKey, genrePromise);
-      const genre = await genrePromise;
-      return {
-        ...row,
-        [enrich.genreField ?? "genre"]: genre,
-      };
-    }),
-  );
-}
-
-async function writeCsv(rows: Entry[], publish: CsvPublishConfig, cwd: string): Promise<string> {
-  const filePath = resolve(cwd, publish.file);
-  await mkdir(dirname(filePath), { recursive: true });
-  const csv = toCsv(publish.columns, rows, publish.header ?? true);
-  await Bun.write(filePath, csv);
-  return filePath;
-}
-
-export async function runPipeline(configPath: string): Promise<{ outputFile: string; rowCount: number }> {
+export async function runPipeline(configPath: string): Promise<{ total: number; added: number }> {
   const cwd = dirname(resolve(configPath));
   const config = await loadConfig(configPath);
+  const db = openDb();
 
-  const commands = getFeedCommands(config);
-  if (!getPlugin(config, "CustomFeed::Script")) {
-    throw new Error("CustomFeed::Script plugin is required for script: feeds");
+  // Seed SQLite from existing feed.json for cross-run deduplication
+  const jsonPlugin = getPlugin(config, "Publish::JSON");
+  if (jsonPlugin) {
+    const jsonPath = resolve(cwd, String(jsonPlugin.config?.file ?? "docs/feed.json"));
+    const f = Bun.file(jsonPath);
+    if (await f.exists()) {
+      const data = JSON.parse(await f.text()) as unknown[];
+      if (Array.isArray(data)) seedFromJson(db, data);
+    }
   }
 
-  const results = await Promise.all(commands.map(async (command) => parseFeedResult(await runScriptCommand(command, cwd))));
-  let rows = results.flatMap((result) => result.entries);
+  const before = getAllEntries(db).length;
 
-  // Apply generic LLM transforms first
-  rows = await transformRowsWithLLM(rows, config);
+  for (const plugin of getPlugins(config, "CustomFeed::Script")) {
+    const cmd = String((plugin.config as { command?: string } | undefined)?.command ?? "");
+    if (!cmd) continue;
+    const raw = await runScriptCommand(cmd, cwd);
+    upsertEntries(db, parseEntries(raw, cmd));
+  }
 
-  // Then apply backward-compatible Sakura genre enrichment
-  rows = await enrichRowsWithSakura(rows, config);
+  const all = getAllEntries(db);
 
-  const outputFile = await writeCsv(rows, getCsvConfig(config), cwd);
+  for (const plugin of getPlugins(config, "Publish::JSON")) {
+    const outPath = resolve(cwd, String(plugin.config?.file ?? "docs/feed.json"));
+    await mkdir(dirname(outPath), { recursive: true });
+    await Bun.write(outPath, JSON.stringify(all, null, 2));
+  }
 
-  return {
-    outputFile,
-    rowCount: rows.length,
-  };
+  for (const plugin of getPlugins(config, "Publish::ICal")) {
+    const outPath = resolve(cwd, String(plugin.config?.file ?? "docs/calendar.ics"));
+    await mkdir(dirname(outPath), { recursive: true });
+    const events: ICalEvent[] = all.map((e) => ({
+      uid: e.uid,
+      summary: e.title,
+      description: e.summary || e.url,
+      url: e.url,
+      dtstart: e.published,
+    }));
+    await Bun.write(outPath, toICal(events));
+  }
+
+  return { total: all.length, added: all.length - before };
 }
