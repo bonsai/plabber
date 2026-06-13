@@ -1,0 +1,31 @@
+global:
+  timezone: Asia/Tokyo
+
+plugins:
+  - module: Subscription::Instagram
+    config:
+      category: free-events
+      vlm:
+        model: gpt-4o
+        prompt: |
+          このフライヤーは無料イベントの案内です。
+          以下のJSONのみを返してください（余計なテキスト不要）:
+          {"title":"イベント名","published":"YYYY-MM-DD","venue":"開催場所","company":"主催者・団体名","summary":"概要100字以内（無料の旨を含める）"}
+      urls:
+        # 無料イベントフライヤーを投稿しているInstagram公開投稿URLを列挙する
+        # - https://www.instagram.com/p/XXXXXXXXXX/
+        # - https://www.instagram.com/p/YYYYYYYYYY/
+
+  - module: Publish::JSON
+    config:
+      file: ../docs/free-events/feed.json
+
+  - module: Publish::ICal
+    config:
+      file: ../docs/free-events/calendar.ics
+
+  # - module: Publish::Gmail
+  #   config:
+  #     to: you@example.com
+  #     subject: "無料イベント情報"
+  #     onlyNew: true

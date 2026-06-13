@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
     inputs:
       config:
-        description: 'Config file (shishokukai or djevent)'
+        description: 'Config file (shishokukai, djevent, or free-events)'
         default: 'shishokukai'
         required: false
 
@@ -35,11 +35,36 @@ jobs:
           git diff --staged --quiet || git commit -m "chore: shishokukai update [skip ci]"
           git push
 
-  djevent:
+  free-events:
     runs-on: ubuntu-latest
     permissions:
       contents: write
     needs: shishokukai
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - name: Run free-events pipeline
+        env:
+          SAKURA_API_KEY: ${{ secrets.SAKURA_API_KEY }}
+          SAKURA_MODEL: ${{ secrets.SAKURA_MODEL }}
+          GMAIL_USER: ${{ secrets.GMAIL_USER }}
+          GMAIL_PASS: ${{ secrets.GMAIL_PASS }}
+        run: bun ./cmd/plabber.ts run -c examples/free-events.yaml
+      - name: Commit outputs
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/free-events/
+          git diff --staged --quiet || git commit -m "chore: free-events update [skip ci]"
+          git push
+
+  djevent:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    needs: free-events
     steps:
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v2

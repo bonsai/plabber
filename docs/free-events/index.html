@@ -3,53 +3,55 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Plabber</title>
+<title>無料イベント — Plabber</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { background: #09090b; color: #e4e4e7; font-family: system-ui, sans-serif; padding: 1.25rem; }
   header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem; }
   h1 { font-size: 1.5rem; font-weight: 700; }
+  .tag { display: inline-block; background: #059669; color: #fff; font-size: .7rem; font-weight: 600; border-radius: .3rem; padding: .15rem .5rem; margin-left: .5rem; vertical-align: middle; }
   .sub { font-size: .8rem; color: #71717a; margin-top: .2rem; }
   .links { display: flex; gap: .75rem; padding-top: .25rem; }
   a { color: #34d399; text-decoration: none; font-size: .85rem; }
   a:hover { text-decoration: underline; }
+  nav { font-size: .8rem; color: #71717a; margin-bottom: 1rem; }
+  nav a { color: #71717a; margin-right: .75rem; }
   .count { font-size: .8rem; color: #a1a1aa; margin-bottom: .75rem; }
   .event { background: #18181b; border-radius: .75rem; padding: 1rem; margin-bottom: .6rem; }
   .event-title { font-size: .9rem; font-weight: 500; color: #34d399; display: block; line-height: 1.4; }
   .event-meta { font-size: .75rem; color: #71717a; margin-top: .3rem; }
+  .insta { font-size: .7rem; color: #a855f7; margin-left: .5rem; }
   .empty { color: #52525b; font-size: .9rem; }
-  .source { font-size: .7rem; color: #52525b; float: right; }
 </style>
 </head>
 <body>
+<nav>
+  <a href="../">← すべて</a>
+  <a href="../shishokukai/">試食会</a>
+  <a href="../djevent/">DJ イベント</a>
+</nav>
 <header>
   <div>
-    <h1>Plabber</h1>
-    <p class="sub">イベントフィードパイプライン</p>
+    <h1>無料イベント<span class="tag">FREE</span></h1>
+    <p class="sub">Instagram フライヤー → VLM 抽出</p>
   </div>
   <div class="links">
     <a href="feed.json">feed.json</a>
     <a href="calendar.ics">calendar.ics</a>
   </div>
 </header>
-<nav style="font-size:.8rem;color:#71717a;margin-bottom:1rem">
-  <a href="shishokukai/" style="color:#dc2626;margin-right:.75rem">試食会</a>
-  <a href="djevent/" style="color:#7c3aed;margin-right:.75rem">DJ イベント</a>
-  <a href="free-events/" style="color:#059669;margin-right:.75rem">無料イベント</a>
-</nav>
 <p class="count" id="count">Loading...</p>
 <div id="events"></div>
 <script type="module">
   function esc(s) {
     return String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
   }
-
   const res = await fetch('feed.json').catch(() => null);
   const events = res?.ok ? await res.json() : [];
   document.getElementById('count').textContent = `${events.length} events`;
   const container = document.getElementById('events');
   if (!events.length) {
-    container.innerHTML = '<p class="empty">No events yet — pipeline will run every 6 hours via GitHub Actions.</p>';
+    container.innerHTML = '<p class="empty">まだデータがありません。YAML に Instagram URL を追加してください。</p>';
   } else {
     container.innerHTML = events.map(ev => `
       <div class="event">
@@ -57,7 +59,8 @@
         <p class="event-meta">
           ${ev.company ? `<span>${esc(ev.company)}</span> &middot; ` : ''}
           <span>${esc(ev.published)}</span>
-          ${ev.summary ? `<br><span style="color:#52525b">${esc(ev.summary.slice(0,120))}${ev.summary.length > 120 ? '…' : ''}</span>` : ''}
+          ${ev.source === 'instagram' ? `<span class="insta">📷 Instagram</span>` : ''}
+          ${ev.summary ? `<br><span style="color:#52525b">${esc(ev.summary.slice(0,120))}${ev.summary.length>120?'…':''}</span>` : ''}
         </p>
       </div>
     `).join('');
