@@ -5,6 +5,7 @@ import { runScriptCommand } from "./script";
 import { toICal, type ICalEvent } from "./ical";
 import { openDb, seedFromJson, upsertEntries, getAllEntries, type EntryRow } from "./db";
 import { publishGmail, type GmailConfig } from "./publish/gmail";
+import { fetchInstagramEntries, type InstagramConfig } from "./sources/instagram";
 import type { PlabberConfig, PluginDefinition } from "./types";
 
 function getPlugins(config: PlabberConfig, name: string): PluginDefinition[] {
@@ -48,6 +49,14 @@ export async function runPipeline(configPath: string): Promise<{ total: number; 
   }
 
   const before = getAllEntries(db).length;
+
+  // Instagram flyer → VLM source
+  for (const plugin of getPlugins(config, "Subscription::Instagram")) {
+    const cfg = plugin.config as Partial<InstagramConfig> | undefined;
+    if (!Array.isArray(cfg?.urls) || !cfg?.urls.length) continue;
+    const entries = await fetchInstagramEntries(cfg as InstagramConfig);
+    upsertEntries(db, entries);
+  }
 
   for (const plugin of getPlugins(config, "CustomFeed::Script")) {
     const cmd = String((plugin.config as { command?: string } | undefined)?.command ?? "");

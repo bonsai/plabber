@@ -1,0 +1,31 @@
+global:
+  timezone: Asia/Tokyo
+
+plugins:
+  - module: Subscription::Instagram
+    config:
+      category: djevent
+      vlm:
+        model: gpt-4o
+        prompt: |
+          このフライヤーはDJイベント・クラブイベントの案内です。
+          以下のJSONのみを返してください（余計なテキスト不要）:
+          {"title":"イベント名","published":"YYYY-MM-DD","venue":"開催場所・クラブ名","company":"主催者・オーガナイザー","summary":"概要100字以内"}
+      urls:
+        # DJイベントフライヤーを投稿しているInstagram公開投稿URLを列挙する
+        # - https://www.instagram.com/p/XXXXXXXXXX/
+        # - https://www.instagram.com/p/YYYYYYYYYY/
+
+  - module: Publish::JSON
+    config:
+      file: ../docs/djevent/feed.json
+
+  - module: Publish::ICal
+    config:
+      file: ../docs/djevent/calendar.ics
+
+  # - module: Publish::Gmail
+  #   config:
+  #     to: you@example.com
+  #     subject: "DJイベント情報"
+  #     onlyNew: true
