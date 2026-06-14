@@ -1,1 +1,11 @@
-[]
+[
+  {
+    "uid": "https://prtimes.jp/main/html/rd/p/000004090.000072793.html",
+    "title": "【岡山大学】害虫もカフェインを飲むと死ぬ～貯穀を害する甲虫に与える影響を解明～",
+    "url": "https://prtimes.jp/main/html/rd/p/000004090.000072793.html",
+    "published": "2026-06-14",
+    "summary": "",
+    "company": "",
+    "source": "bun ./scripts/prtimes.ts"
+  }
+]
