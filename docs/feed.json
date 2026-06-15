@@ -1,5 +1,32 @@
 [
   {
+    "uid": "https://prtimes.jp/main/html/rd/p/000000056.000112029.html",
+    "title": "【新商品】クラブハリエ「バーム ド ヴォヤージュ 無垢」7月1日発売",
+    "url": "https://prtimes.jp/main/html/rd/p/000000056.000112029.html",
+    "published": "2029-56-11",
+    "summary": "",
+    "company": "",
+    "source": "bun ./scripts/prtimes.ts"
+  },
+  {
+    "uid": "https://prtimes.jp/main/html/rd/p/000000114.000017143.html",
+    "title": "イデア・レコード、飲食店特化型予約管理システム「お席トットくん」を初期費用0円・月額固定費0円で提供開始",
+    "url": "https://prtimes.jp/main/html/rd/p/000000114.000017143.html",
+    "published": "2026-06-15",
+    "summary": "",
+    "company": "",
+    "source": "bun ./scripts/prtimes.ts"
+  },
+  {
+    "uid": "https://prtimes.jp/main/html/rd/p/000000245.000030943.html",
+    "title": "キリンビール、「coorum(コーラム)」を導入し、飲食店開業支援コミュニティ「CHEERS FRONTIER（チアーズフロンティア）」を開設。",
+    "url": "https://prtimes.jp/main/html/rd/p/000000245.000030943.html",
+    "published": "2026-06-15",
+    "summary": "",
+    "company": "",
+    "source": "bun ./scripts/prtimes.ts"
+  },
+  {
     "uid": "https://prtimes.jp/main/html/rd/p/000004090.000072793.html",
     "title": "【岡山大学】害虫もカフェインを飲むと死ぬ～貯穀を害する甲虫に与える影響を解明～",
     "url": "https://prtimes.jp/main/html/rd/p/000004090.000072793.html",

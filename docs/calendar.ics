@@ -6,8 +6,35 @@ X-WR-TIMEZONE:Asia/Tokyo
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
 BEGIN:VEVENT
+UID:https://prtimes.jp/main/html/rd/p/000000056.000112029.html
+DTSTAMP:20260615T081348Z
+SUMMARY:【新商品】クラブハリエ「バーム ド ヴォヤージュ 無垢」7月1日発売
+DTSTART;VALUE=DATE:20295611
+DTEND;VALUE=DATE:20295611
+DESCRIPTION:https://prtimes.jp/main/html/rd/p/000000056.000112029.html
+URL:https://prtimes.jp/main/html/rd/p/000000056.000112029.html
+END:VEVENT
+BEGIN:VEVENT
+UID:https://prtimes.jp/main/html/rd/p/000000114.000017143.html
+DTSTAMP:20260615T081348Z
+SUMMARY:イデア・レコード、飲食店特化型予約管理システム「お席トットくん」を初期費用0円・月額固定費0円で提供開始
+DTSTART;VALUE=DATE:20260615
+DTEND;VALUE=DATE:20260615
+DESCRIPTION:https://prtimes.jp/main/html/rd/p/000000114.000017143.html
+URL:https://prtimes.jp/main/html/rd/p/000000114.000017143.html
+END:VEVENT
+BEGIN:VEVENT
+UID:https://prtimes.jp/main/html/rd/p/000000245.000030943.html
+DTSTAMP:20260615T081348Z
+SUMMARY:キリンビール、「coorum(コーラム)」を導入し、飲食店開業支援コミュニティ「CHEERS FRONTIER（チアーズフロンティア）」を開設。
+DTSTART;VALUE=DATE:20260615
+DTEND;VALUE=DATE:20260615
+DESCRIPTION:https://prtimes.jp/main/html/rd/p/000000245.000030943.html
+URL:https://prtimes.jp/main/html/rd/p/000000245.000030943.html
+END:VEVENT
+BEGIN:VEVENT
 UID:https://prtimes.jp/main/html/rd/p/000004090.000072793.html
-DTSTAMP:20260615T011029Z
+DTSTAMP:20260615T081348Z
 SUMMARY:【岡山大学】害虫もカフェインを飲むと死ぬ～貯穀を害する甲虫に与える影響を解明～
 DTSTART;VALUE=DATE:20260614
 DTEND;VALUE=DATE:20260614
