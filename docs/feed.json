@@ -27,6 +27,15 @@
     "source": "bun ./scripts/prtimes.ts"
   },
   {
+    "uid": "https://prtimes.jp/main/html/rd/p/000003393.000064643.html",
+    "title": "ABEMA『今日、好きになりました。』2026年8月10日（月）に今日好きメンバーとひと夏の思い出を一緒につくるスペシャルイベント「今日好き夏まつり supported by GRL」の開催を決定！",
+    "url": "https://prtimes.jp/main/html/rd/p/000003393.000064643.html",
+    "published": "2026-06-15",
+    "summary": "",
+    "company": "",
+    "source": "bun ./scripts/prtimes.ts"
+  },
+  {
     "uid": "https://prtimes.jp/main/html/rd/p/000004090.000072793.html",
     "title": "【岡山大学】害虫もカフェインを飲むと死ぬ～貯穀を害する甲虫に与える影響を解明～",
     "url": "https://prtimes.jp/main/html/rd/p/000004090.000072793.html",
