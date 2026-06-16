@@ -1,5 +1,14 @@
 [
   {
+    "uid": "https://prtimes.jp/main/html/rd/p/000000041.000023399.html",
+    "title": "食品業界志望学生248名に聞いた、夏前の就活不安 最多は『面接対策』、業界・企業研究や自己分析にも不安",
+    "url": "https://prtimes.jp/main/html/rd/p/000000041.000023399.html",
+    "published": "3399-41-23",
+    "summary": "",
+    "company": "",
+    "source": "bun ./scripts/prtimes.ts"
+  },
+  {
     "uid": "https://prtimes.jp/main/html/rd/p/000000056.000112029.html",
     "title": "【新商品】クラブハリエ「バーム ド ヴォヤージュ 無垢」7月1日発売",
     "url": "https://prtimes.jp/main/html/rd/p/000000056.000112029.html",
