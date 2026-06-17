@@ -18,6 +18,15 @@
     "source": "bun ./scripts/prtimes.ts"
   },
   {
+    "uid": "https://prtimes.jp/main/html/rd/p/000001729.000017808.html",
+    "title": "「ASUS Summit 2026」にてNVIDIA Rubin世代HGXハイブリッド冷却AIサーバーとNVIDIA RTX Spark搭載のAI PCを日本国内初披露",
+    "url": "https://prtimes.jp/main/html/rd/p/000001729.000017808.html",
+    "published": "2026-06-17",
+    "summary": "",
+    "company": "",
+    "source": "bun ./scripts/prtimes.ts"
+  },
+  {
     "uid": "https://prtimes.jp/main/html/rd/p/000000114.000017143.html",
     "title": "イデア・レコード、飲食店特化型予約管理システム「お席トットくん」を初期費用0円・月額固定費0円で提供開始",
     "url": "https://prtimes.jp/main/html/rd/p/000000114.000017143.html",
