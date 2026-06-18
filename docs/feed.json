@@ -27,6 +27,15 @@
     "source": "bun ./scripts/prtimes.ts"
   },
   {
+    "uid": "https://prtimes.jp/main/html/rd/p/000000417.000096124.html",
+    "title": "『原神』バージョン「Luna Ⅷ」が7月1日（水）にリリース！待望の「サンドローネ」が新たなプレイアブルキャラクターとして登場！",
+    "url": "https://prtimes.jp/main/html/rd/p/000000417.000096124.html",
+    "published": "2026-06-18",
+    "summary": "",
+    "company": "",
+    "source": "bun ./scripts/prtimes.ts"
+  },
+  {
     "uid": "https://prtimes.jp/main/html/rd/p/000000001.000183851.html",
     "title": "デモネアの魅力が一杯で圧倒的なビジュアルの良さと魂しいの歌声が武器！無数の賛辞！タレントのハンサムユカリーオ「美空ひばり生誕祭」に美空ひばりさんのカバー曲『母』で奇跡の世界デビューをついに果たした！",
     "url": "https://prtimes.jp/main/html/rd/p/000000001.000183851.html",
