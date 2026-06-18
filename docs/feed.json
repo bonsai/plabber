@@ -18,6 +18,15 @@
     "source": "bun ./scripts/prtimes.ts"
   },
   {
+    "uid": "https://prtimes.jp/main/html/rd/p/000000160.000141928.html",
+    "title": "ジムニーカスタム専門店「ジムニーラバーズ」、取付工賃が最大50％OFF カスタムイベント開催決定！",
+    "url": "https://prtimes.jp/main/html/rd/p/000000160.000141928.html",
+    "published": "2026-06-18",
+    "summary": "",
+    "company": "",
+    "source": "bun ./scripts/prtimes.ts"
+  },
+  {
     "uid": "https://prtimes.jp/main/html/rd/p/000000001.000183851.html",
     "title": "デモネアの魅力が一杯で圧倒的なビジュアルの良さと魂しいの歌声が武器！無数の賛辞！タレントのハンサムユカリーオ「美空ひばり生誕祭」に美空ひばりさんのカバー曲『母』で奇跡の世界デビューをついに果たした！",
     "url": "https://prtimes.jp/main/html/rd/p/000000001.000183851.html",
