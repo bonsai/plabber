@@ -1,5 +1,14 @@
 [
   {
+    "uid": "https://prtimes.jp/main/html/rd/p/000000011.000134398.html",
+    "title": "「ブティック・プロパティの、ビジネスデザインファーム」へブランドを刷新｜第一弾として、ホテル・旅館の投資判断分析サービス『market plus』をリリース",
+    "url": "https://prtimes.jp/main/html/rd/p/000000011.000134398.html",
+    "published": "4398-11-13",
+    "summary": "",
+    "company": "",
+    "source": "bun ./scripts/prtimes.ts"
+  },
+  {
     "uid": "https://prtimes.jp/main/html/rd/p/000000041.000023399.html",
     "title": "食品業界志望学生248名に聞いた、夏前の就活不安 最多は『面接対策』、業界・企業研究や自己分析にも不安",
     "url": "https://prtimes.jp/main/html/rd/p/000000041.000023399.html",
