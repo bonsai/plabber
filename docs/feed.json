@@ -27,6 +27,15 @@
     "source": "bun ./scripts/prtimes.ts"
   },
   {
+    "uid": "https://prtimes.jp/main/html/rd/p/000008341.000016756.html",
+    "title": "TVアニメ『ようこそ実力至上主義の教室へ』より、抱き枕カバーが受注生産商品で登場！",
+    "url": "https://prtimes.jp/main/html/rd/p/000008341.000016756.html",
+    "published": "2026-06-20",
+    "summary": "",
+    "company": "",
+    "source": "bun ./scripts/prtimes.ts"
+  },
+  {
     "uid": "https://prtimes.jp/main/html/rd/p/000000160.000141928.html",
     "title": "ジムニーカスタム専門店「ジムニーラバーズ」、取付工賃が最大50％OFF カスタムイベント開催決定！",
     "url": "https://prtimes.jp/main/html/rd/p/000000160.000141928.html",
