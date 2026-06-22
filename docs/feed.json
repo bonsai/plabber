@@ -27,6 +27,15 @@
     "source": "bun ./scripts/prtimes.ts"
   },
   {
+    "uid": "https://prtimes.jp/main/html/rd/p/000000003.000171315.html",
+    "title": "サッカー元日本代表FW・鈴木武蔵氏が五反田に降臨。サッカーと韓国グルメ、カラオケバーが交差する異空間",
+    "url": "https://prtimes.jp/main/html/rd/p/000000003.000171315.html",
+    "published": "2026-06-22",
+    "summary": "",
+    "company": "",
+    "source": "bun ./scripts/prtimes.ts"
+  },
+  {
     "uid": "https://prtimes.jp/main/html/rd/p/000008341.000016756.html",
     "title": "TVアニメ『ようこそ実力至上主義の教室へ』より、抱き枕カバーが受注生産商品で登場！",
     "url": "https://prtimes.jp/main/html/rd/p/000008341.000016756.html",
