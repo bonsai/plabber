@@ -27,6 +27,15 @@
     "source": "bun ./scripts/prtimes.ts"
   },
   {
+    "uid": "https://prtimes.jp/main/html/rd/p/000002227.000051316.html",
+    "title": "PlayStation®5/Xbox Series X|S/STEAM®「ドラゴンボール ゼノバース３」最新映像「第１弾PV」公開のお知らせ",
+    "url": "https://prtimes.jp/main/html/rd/p/000002227.000051316.html",
+    "published": "2026-06-23",
+    "summary": "",
+    "company": "",
+    "source": "bun ./scripts/prtimes.ts"
+  },
+  {
     "uid": "https://prtimes.jp/main/html/rd/p/000002395.000016682.html",
     "title": "【リーガロイヤルホテル大阪】大阪中之島美術館「フェルメール《真珠の耳飾りの少女》展 17世紀オランダ絵画の名品、奇跡の再来日」コラボレーションメニューをレストラン・バーにて販売",
     "url": "https://prtimes.jp/main/html/rd/p/000002395.000016682.html",
