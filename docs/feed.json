@@ -27,6 +27,15 @@
     "source": "bun ./scripts/prtimes.ts"
   },
   {
+    "uid": "https://prtimes.jp/main/html/rd/p/000001346.000056982.html",
+    "title": "【アルルカン】メンバー全員出演「friend &amp; fiend 2026」開催記念特番が決定！ニコニコ生放送で7月1日（水）20時から放送",
+    "url": "https://prtimes.jp/main/html/rd/p/000001346.000056982.html",
+    "published": "2026-06-25",
+    "summary": "",
+    "company": "",
+    "source": "bun ./scripts/prtimes.ts"
+  },
+  {
     "uid": "https://prtimes.jp/main/html/rd/p/000000846.000005761.html",
     "title": "夏の夜の楽しみ方を一新する、２５周年のユニバーサル・スタジオ・ジャパンがパークを飛び出し、東京のど真ん中に１日限定で登場！『夏の子どもホンネ演説会 in 東京』本日開催！「ママだけ夜のお菓子ずるい！」",
     "url": "https://prtimes.jp/main/html/rd/p/000000846.000005761.html",
