@@ -7,7 +7,7 @@ CALSCALE:GREGORIAN
 METHOD:PUBLISH
 BEGIN:VEVENT
 UID:https://prtimes.jp/main/html/rd/p/000000011.000134398.html
-DTSTAMP:20260625T125442Z
+DTSTAMP:20260625T185125Z
 SUMMARY:「ブティック・プロパティの、ビジネスデザインファーム」へブランドを刷新｜第一弾として、ホテル・旅館の投資判断分析サービス『market plus』をリリース
 DTSTART;VALUE=DATE:43981113
 DTEND;VALUE=DATE:43981113
@@ -16,7 +16,7 @@ URL:https://prtimes.jp/main/html/rd/p/000000011.000134398.html
 END:VEVENT
 BEGIN:VEVENT
 UID:https://prtimes.jp/main/html/rd/p/000000041.000023399.html
-DTSTAMP:20260625T125442Z
+DTSTAMP:20260625T185125Z
 SUMMARY:食品業界志望学生248名に聞いた、夏前の就活不安 最多は『面接対策』、業界・企業研究や自己分析にも不安
 DTSTART;VALUE=DATE:33994123
 DTEND;VALUE=DATE:33994123
@@ -25,7 +25,7 @@ URL:https://prtimes.jp/main/html/rd/p/000000041.000023399.html
 END:VEVENT
 BEGIN:VEVENT
 UID:https://prtimes.jp/main/html/rd/p/000000056.000112029.html
-DTSTAMP:20260625T125442Z
+DTSTAMP:20260625T185125Z
 SUMMARY:【新商品】クラブハリエ「バーム ド ヴォヤージュ 無垢」7月1日発売
 DTSTART;VALUE=DATE:20295611
 DTEND;VALUE=DATE:20295611
@@ -34,7 +34,7 @@ URL:https://prtimes.jp/main/html/rd/p/000000056.000112029.html
 END:VEVENT
 BEGIN:VEVENT
 UID:https://prtimes.jp/main/html/rd/p/000001346.000056982.html
-DTSTAMP:20260625T125442Z
+DTSTAMP:20260625T185125Z
 SUMMARY:【アルルカン】メンバー全員出演「friend &amp\; fiend 2026」開催記念特番が決定！ニコニコ生放送で7月1日（水）20時から放送
 DTSTART;VALUE=DATE:20260625
 DTEND;VALUE=DATE:20260625
@@ -43,7 +43,7 @@ URL:https://prtimes.jp/main/html/rd/p/000001346.000056982.html
 END:VEVENT
 BEGIN:VEVENT
 UID:https://prtimes.jp/main/html/rd/p/000000846.000005761.html
-DTSTAMP:20260625T125442Z
+DTSTAMP:20260625T185125Z
 SUMMARY:夏の夜の楽しみ方を一新する、２５周年のユニバーサル・スタジオ・ジャパンがパークを飛び出し、東京のど真ん中に１日限定で登場！『夏の子どもホンネ演説会 in 東京』本日開催！「ママだけ夜のお菓子ずるい！」
 DTSTART;VALUE=DATE:20260624
 DTEND;VALUE=DATE:20260624
@@ -52,7 +52,7 @@ URL:https://prtimes.jp/main/html/rd/p/000000846.000005761.html
 END:VEVENT
 BEGIN:VEVENT
 UID:https://prtimes.jp/main/html/rd/p/000002227.000051316.html
-DTSTAMP:20260625T125442Z
+DTSTAMP:20260625T185125Z
 SUMMARY:PlayStation®5/Xbox Series X|S/STEAM®「ドラゴンボール ゼノバース３」最新映像「第１弾PV」公開のお知らせ
 DTSTART;VALUE=DATE:20260623
 DTEND;VALUE=DATE:20260623
@@ -61,7 +61,7 @@ URL:https://prtimes.jp/main/html/rd/p/000002227.000051316.html
 END:VEVENT
 BEGIN:VEVENT
 UID:https://prtimes.jp/main/html/rd/p/000002395.000016682.html
-DTSTAMP:20260625T125442Z
+DTSTAMP:20260625T185125Z
 SUMMARY:【リーガロイヤルホテル大阪】大阪中之島美術館「フェルメール《真珠の耳飾りの少女》展 17世紀オランダ絵画の名品、奇跡の再来日」コラボレーションメニューをレストラン・バーにて販売
 DTSTART;VALUE=DATE:20260623
 DTEND;VALUE=DATE:20260623
@@ -70,7 +70,7 @@ URL:https://prtimes.jp/main/html/rd/p/000002395.000016682.html
 END:VEVENT
 BEGIN:VEVENT
 UID:https://prtimes.jp/main/html/rd/p/000000003.000171315.html
-DTSTAMP:20260625T125442Z
+DTSTAMP:20260625T185125Z
 SUMMARY:サッカー元日本代表FW・鈴木武蔵氏が五反田に降臨。サッカーと韓国グルメ、カラオケバーが交差する異空間
 DTSTART;VALUE=DATE:20260622
 DTEND;VALUE=DATE:20260622
@@ -79,7 +79,7 @@ URL:https://prtimes.jp/main/html/rd/p/000000003.000171315.html
 END:VEVENT
 BEGIN:VEVENT
 UID:https://prtimes.jp/main/html/rd/p/000008341.000016756.html
-DTSTAMP:20260625T125442Z
+DTSTAMP:20260625T185125Z
 SUMMARY:TVアニメ『ようこそ実力至上主義の教室へ』より、抱き枕カバーが受注生産商品で登場！
 DTSTART;VALUE=DATE:20260620
 DTEND;VALUE=DATE:20260620
@@ -88,7 +88,7 @@ URL:https://prtimes.jp/main/html/rd/p/000008341.000016756.html
 END:VEVENT
 BEGIN:VEVENT
 UID:https://prtimes.jp/main/html/rd/p/000000160.000141928.html
-DTSTAMP:20260625T125442Z
+DTSTAMP:20260625T185125Z
 SUMMARY:ジムニーカスタム専門店「ジムニーラバーズ」、取付工賃が最大50％OFF カスタムイベント開催決定！
 DTSTART;VALUE=DATE:20260618
 DTEND;VALUE=DATE:20260618
@@ -97,7 +97,7 @@ URL:https://prtimes.jp/main/html/rd/p/000000160.000141928.html
 END:VEVENT
 BEGIN:VEVENT
 UID:https://prtimes.jp/main/html/rd/p/000000417.000096124.html
-DTSTAMP:20260625T125442Z
+DTSTAMP:20260625T185125Z
 SUMMARY:『原神』バージョン「Luna Ⅷ」が7月1日（水）にリリース！待望の「サンドローネ」が新たなプレイアブルキャラクターとして登場！
 DTSTART;VALUE=DATE:20260618
 DTEND;VALUE=DATE:20260618
@@ -106,7 +106,7 @@ URL:https://prtimes.jp/main/html/rd/p/000000417.000096124.html
 END:VEVENT
 BEGIN:VEVENT
 UID:https://prtimes.jp/main/html/rd/p/000000001.000183851.html
-DTSTAMP:20260625T125442Z
+DTSTAMP:20260625T185125Z
 SUMMARY:デモネアの魅力が一杯で圧倒的なビジュアルの良さと魂しいの歌声が武器！無数の賛辞！タレントのハンサムユカリーオ「美空ひばり生誕祭」に美空ひばりさんのカバー曲『母』で奇跡の世界デビューをついに果たした！
 DTSTART;VALUE=DATE:20260617
 DTEND;VALUE=DATE:20260617
@@ -115,7 +115,7 @@ URL:https://prtimes.jp/main/html/rd/p/000000001.000183851.html
 END:VEVENT
 BEGIN:VEVENT
 UID:https://prtimes.jp/main/html/rd/p/000001729.000017808.html
-DTSTAMP:20260625T125442Z
+DTSTAMP:20260625T185125Z
 SUMMARY:「ASUS Summit 2026」にてNVIDIA Rubin世代HGXハイブリッド冷却AIサーバーとNVIDIA RTX Spark搭載のAI PCを日本国内初披露
 DTSTART;VALUE=DATE:20260617
 DTEND;VALUE=DATE:20260617
@@ -124,7 +124,7 @@ URL:https://prtimes.jp/main/html/rd/p/000001729.000017808.html
 END:VEVENT
 BEGIN:VEVENT
 UID:https://prtimes.jp/main/html/rd/p/000000114.000017143.html
-DTSTAMP:20260625T125442Z
+DTSTAMP:20260625T185125Z
 SUMMARY:イデア・レコード、飲食店特化型予約管理システム「お席トットくん」を初期費用0円・月額固定費0円で提供開始
 DTSTART;VALUE=DATE:20260615
 DTEND;VALUE=DATE:20260615
@@ -133,7 +133,7 @@ URL:https://prtimes.jp/main/html/rd/p/000000114.000017143.html
 END:VEVENT
 BEGIN:VEVENT
 UID:https://prtimes.jp/main/html/rd/p/000000245.000030943.html
-DTSTAMP:20260625T125442Z
+DTSTAMP:20260625T185125Z
 SUMMARY:キリンビール、「coorum(コーラム)」を導入し、飲食店開業支援コミュニティ「CHEERS FRONTIER（チアーズフロンティア）」を開設。
 DTSTART;VALUE=DATE:20260615
 DTEND;VALUE=DATE:20260615
@@ -142,7 +142,7 @@ URL:https://prtimes.jp/main/html/rd/p/000000245.000030943.html
 END:VEVENT
 BEGIN:VEVENT
 UID:https://prtimes.jp/main/html/rd/p/000003393.000064643.html
-DTSTAMP:20260625T125442Z
+DTSTAMP:20260625T185125Z
 SUMMARY:ABEMA『今日、好きになりました。』2026年8月10日（月）に今日好きメンバーとひと夏の思い出を一緒につくるスペシャルイベント「今日好き夏まつり supported by GRL」の開催を決定！
 DTSTART;VALUE=DATE:20260615
 DTEND;VALUE=DATE:20260615
@@ -151,7 +151,7 @@ URL:https://prtimes.jp/main/html/rd/p/000003393.000064643.html
 END:VEVENT
 BEGIN:VEVENT
 UID:https://prtimes.jp/main/html/rd/p/000004090.000072793.html
-DTSTAMP:20260625T125442Z
+DTSTAMP:20260625T185125Z
 SUMMARY:【岡山大学】害虫もカフェインを飲むと死ぬ～貯穀を害する甲虫に与える影響を解明～
 DTSTART;VALUE=DATE:20260614
 DTEND;VALUE=DATE:20260614
