@@ -1,5 +1,14 @@
 [
   {
+    "uid": "https://prtimes.jp/main/html/rd/p/000000019.000179321.html",
+    "title": "株式会社AIメタバース、ドライバーテクノロジーズと共同開発したドライバー採用・教育支援サービスの提供を開始",
+    "url": "https://prtimes.jp/main/html/rd/p/000000019.000179321.html",
+    "published": "9321-19-17",
+    "summary": "",
+    "company": "",
+    "source": "bun ./scripts/prtimes.ts"
+  },
+  {
     "uid": "https://prtimes.jp/main/html/rd/p/000000011.000134398.html",
     "title": "「ブティック・プロパティの、ビジネスデザインファーム」へブランドを刷新｜第一弾として、ホテル・旅館の投資判断分析サービス『market plus』をリリース",
     "url": "https://prtimes.jp/main/html/rd/p/000000011.000134398.html",
