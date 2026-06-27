@@ -45,6 +45,15 @@
     "source": "bun ./scripts/prtimes.ts"
   },
   {
+    "uid": "https://prtimes.jp/main/html/rd/p/000003541.000022425.html",
+    "title": "New EP『ZIPANGRIMM』リリース記念！ZIPANG OPERA のメンバーがリアルタイムで登場するリスニングパーティーをAWAラウンジで初開催！",
+    "url": "https://prtimes.jp/main/html/rd/p/000003541.000022425.html",
+    "published": "2026-06-27",
+    "summary": "",
+    "company": "",
+    "source": "bun ./scripts/prtimes.ts"
+  },
+  {
     "uid": "https://prtimes.jp/main/html/rd/p/000001346.000056982.html",
     "title": "【アルルカン】メンバー全員出演「friend &amp; fiend 2026」開催記念特番が決定！ニコニコ生放送で7月1日（水）20時から放送",
     "url": "https://prtimes.jp/main/html/rd/p/000001346.000056982.html",
