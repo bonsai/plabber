@@ -54,6 +54,15 @@
     "source": "bun ./scripts/prtimes.ts"
   },
   {
+    "uid": "https://prtimes.jp/main/html/rd/p/000003542.000022425.html",
+    "title": "30th single「PHOENIXXXX-フェニックス-」リリース記念！メンバーの限定ボイスもオンエアするRoyz特集リスニングパーティーをAWAラウンジで初開催！",
+    "url": "https://prtimes.jp/main/html/rd/p/000003542.000022425.html",
+    "published": "2026-06-28",
+    "summary": "",
+    "company": "",
+    "source": "bun ./scripts/prtimes.ts"
+  },
+  {
     "uid": "https://prtimes.jp/main/html/rd/p/000002017.000019483.html",
     "title": "【札幌・定山渓温泉 章月グランドホテル】7月24日（金）・25日（土）ラウンジコンサート開催のご案内",
     "url": "https://prtimes.jp/main/html/rd/p/000002017.000019483.html",
