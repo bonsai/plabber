@@ -36,6 +36,24 @@
     "source": "bun ./scripts/prtimes.ts"
   },
   {
+    "uid": "https://prtimes.jp/main/html/rd/p/000000289.000027824.html",
+    "title": "2026年サンリオキャラクター大賞で上位ランクイン！ホテルニューオータニ博多で楽しむ『KUROMI Afternoon Tea at Castillian』",
+    "url": "https://prtimes.jp/main/html/rd/p/000000289.000027824.html",
+    "published": "2026-06-28",
+    "summary": "",
+    "company": "",
+    "source": "bun ./scripts/prtimes.ts"
+  },
+  {
+    "uid": "https://prtimes.jp/main/html/rd/p/000000899.000041063.html",
+    "title": "東京2020パラリンピック閉会式で演奏した“7本指のピアニスト”西川悟平がバースデーコンサートを有楽町で開催 『Gohei Nishikawa Birthday Concert ～不可能を超えた音～』",
+    "url": "https://prtimes.jp/main/html/rd/p/000000899.000041063.html",
+    "published": "2026-06-28",
+    "summary": "",
+    "company": "",
+    "source": "bun ./scripts/prtimes.ts"
+  },
+  {
     "uid": "https://prtimes.jp/main/html/rd/p/000002017.000019483.html",
     "title": "【札幌・定山渓温泉 章月グランドホテル】7月24日（金）・25日（土）ラウンジコンサート開催のご案内",
     "url": "https://prtimes.jp/main/html/rd/p/000002017.000019483.html",
