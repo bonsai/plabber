@@ -36,6 +36,42 @@
     "source": "bun ./scripts/prtimes.ts"
   },
   {
+    "uid": "https://prtimes.jp/main/html/rd/p/000000004.000100738.html",
+    "title": "池田エライザさん、RADWIMPSの人気ソング「正解」をカバー フコク生命 新CM『優しい距離感篇』を2026年7月1日より全国放映開始",
+    "url": "https://prtimes.jp/main/html/rd/p/000000004.000100738.html",
+    "published": "2026-06-29",
+    "summary": "",
+    "company": "",
+    "source": "bun ./scripts/prtimes.ts"
+  },
+  {
+    "uid": "https://prtimes.jp/main/html/rd/p/000000326.000049041.html",
+    "title": "Sony MusicによるVTuberプロジェクト「VEE」、所属VTuber「芽々守あん」のバースデーグッズ&amp;バースデーボイスが販売開始！",
+    "url": "https://prtimes.jp/main/html/rd/p/000000326.000049041.html",
+    "published": "2026-06-29",
+    "summary": "",
+    "company": "",
+    "source": "bun ./scripts/prtimes.ts"
+  },
+  {
+    "uid": "https://prtimes.jp/main/html/rd/p/000000849.000005761.html",
+    "title": "２５周年のユニバーサル・スタジオ・ジャパン、夏の夜を一新 『ユニバーサル・サマー・マツリ・ナイト ～ネオン・グロウアップ～』本日先行公開",
+    "url": "https://prtimes.jp/main/html/rd/p/000000849.000005761.html",
+    "published": "2026-06-29",
+    "summary": "",
+    "company": "",
+    "source": "bun ./scripts/prtimes.ts"
+  },
+  {
+    "uid": "https://prtimes.jp/main/html/rd/p/000002282.000016719.html",
+    "title": "アオペラ初のカバー楽曲収録シングル『アオペラ -aoppella!?-８』2026年11月25日発売決定！！",
+    "url": "https://prtimes.jp/main/html/rd/p/000002282.000016719.html",
+    "published": "2026-06-29",
+    "summary": "",
+    "company": "",
+    "source": "bun ./scripts/prtimes.ts"
+  },
+  {
     "uid": "https://prtimes.jp/main/html/rd/p/000000289.000027824.html",
     "title": "2026年サンリオキャラクター大賞で上位ランクイン！ホテルニューオータニ博多で楽しむ『KUROMI Afternoon Tea at Castillian』",
     "url": "https://prtimes.jp/main/html/rd/p/000000289.000027824.html",
