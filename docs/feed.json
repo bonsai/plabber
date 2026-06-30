@@ -54,6 +54,15 @@
     "source": "bun ./scripts/prtimes.ts"
   },
   {
+    "uid": "https://prtimes.jp/main/html/rd/p/000000274.000165726.html",
+    "title": "夏色に包まれる、至福のアフタヌーンティー｜北海道の恵みと季節の彩りを味わう「Summer Afternoon Tea」をカフェZにて提供",
+    "url": "https://prtimes.jp/main/html/rd/p/000000274.000165726.html",
+    "published": "2026-06-30",
+    "summary": "",
+    "company": "",
+    "source": "bun ./scripts/prtimes.ts"
+  },
+  {
     "uid": "https://prtimes.jp/main/html/rd/p/000008531.000001719.html",
     "title": "サーティワン アイスクリーム監修のシールブックが登場！ 定番から人気フレーバーの実写シールが５３枚入り！",
     "url": "https://prtimes.jp/main/html/rd/p/000008531.000001719.html",
