@@ -45,6 +45,15 @@
     "source": "bun ./scripts/prtimes.ts"
   },
   {
+    "uid": "https://prtimes.jp/main/html/rd/p/000000141.000030575.html",
+    "title": "三菱一号館美術館「“カフェ”に集う芸術家―印象派からゴッホ、ロートレック、ピカソまで」ご家族で楽しむ期間限定イベント「かくれ猫を探せ！」開催",
+    "url": "https://prtimes.jp/main/html/rd/p/000000141.000030575.html",
+    "published": "2026-06-30",
+    "summary": "",
+    "company": "",
+    "source": "bun ./scripts/prtimes.ts"
+  },
+  {
     "uid": "https://prtimes.jp/main/html/rd/p/000008531.000001719.html",
     "title": "サーティワン アイスクリーム監修のシールブックが登場！ 定番から人気フレーバーの実写シールが５３枚入り！",
     "url": "https://prtimes.jp/main/html/rd/p/000008531.000001719.html",
