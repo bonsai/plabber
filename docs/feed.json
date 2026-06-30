@@ -27,10 +27,28 @@
     "source": "bun ./scripts/prtimes.ts"
   },
   {
+    "uid": "https://prtimes.jp/main/html/rd/p/000000041.000153026.html",
+    "title": "ハローワーク名古屋南で、ドライバー職に興味がある求職者に向けたセミナーと就職相談会が同日開催されました",
+    "url": "https://prtimes.jp/main/html/rd/p/000000041.000153026.html",
+    "published": "3026-41-15",
+    "summary": "",
+    "company": "",
+    "source": "bun ./scripts/prtimes.ts"
+  },
+  {
     "uid": "https://prtimes.jp/main/html/rd/p/000000056.000112029.html",
     "title": "【新商品】クラブハリエ「バーム ド ヴォヤージュ 無垢」7月1日発売",
     "url": "https://prtimes.jp/main/html/rd/p/000000056.000112029.html",
     "published": "2029-56-11",
+    "summary": "",
+    "company": "",
+    "source": "bun ./scripts/prtimes.ts"
+  },
+  {
+    "uid": "https://prtimes.jp/main/html/rd/p/000008531.000001719.html",
+    "title": "サーティワン アイスクリーム監修のシールブックが登場！ 定番から人気フレーバーの実写シールが５３枚入り！",
+    "url": "https://prtimes.jp/main/html/rd/p/000008531.000001719.html",
+    "published": "2026-06-30",
     "summary": "",
     "company": "",
     "source": "bun ./scripts/prtimes.ts"
